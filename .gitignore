@@ -1,0 +1,25 @@
+# intellij
+.idea
+
+# python
+__pycache__
+
+# env files
+.env*
+
+# mac os
+.DS_Store
+
+# testing
+playground.py
+.pytest_cache
+
+# python environments
+.venv
+venv
+
+# testing notebook
+testing.ipynb
+
+# folder for saving and retrieving data (messy, i know)
+test-data
