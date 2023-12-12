@@ -54,7 +54,7 @@ class Client:
     def __init__(
         self,
         api_key: Optional[str] = None,
-        rate_limit_delay: float = 0.06,
+        rate_limit_delay: int | float = 0.06,
     ) -> None:
         self.api_key = os.getenv("CHAINALYSIS_API_KEY", api_key)
         if self.api_key is None:
@@ -74,7 +74,7 @@ class Client:
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
-        await self._client.aclose()
+        await self.close()
 
     async def _to_dict(self) -> dict:
         return {
@@ -90,6 +90,9 @@ class Client:
 
     def display(self) -> str:
         return f"ChainalysisSanctionClient({json.dumps(self._to_dict(), indent=4)})"
+
+    async def close(self) -> None:
+        await self._client.aclose()
 
     async def _get(self, endpoint: str, headers: Dict[str, str]) -> Response:
         async with self._rl_lock:
